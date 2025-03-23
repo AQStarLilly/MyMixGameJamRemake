@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 dashDirection;
     private float dashTimeRemaining;
 
+    private bool inputEnabled = true;
     private Vector3 respawnPoint;
 
     [Header("Fall Death Settings")]
@@ -61,6 +62,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!inputEnabled) return;
+
         Vector3 camForward = cameraController.GetCameraForwardFlat();
         Vector3 camRight = cameraController.GetCameraRightFlat();
         Vector3 move = (camForward * moveInput.y + camRight * moveInput.x).normalized;
@@ -100,6 +103,12 @@ public class PlayerController : MonoBehaviour
         Vector3 velocity = rb.velocity;
         Vector3 velocityChange = targetVelocity - new Vector3(velocity.x, 0, velocity.z);
         rb.AddForce(velocityChange, ForceMode.VelocityChange);
+    }
+
+    public void DisableInput()
+    {
+        inputEnabled = false;
+        rb.velocity = Vector3.zero;
     }
 
     public void SetCheckpoint(Vector3 newCheckpoint)
