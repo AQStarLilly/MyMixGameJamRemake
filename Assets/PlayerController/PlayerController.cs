@@ -48,11 +48,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (!inputEnabled) return;
+
         // Store input for use in FixedUpdate
         moveInput = inputActions.Player.Move.ReadValue<Vector2>();
 
-        // Ground check (basic raycast)
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, groundLayer);
+        RaycastHit hit;
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckDistance);
 
         if (transform.position.y < fallDeathY)
         {
@@ -107,8 +109,15 @@ public class PlayerController : MonoBehaviour
 
     public void DisableInput()
     {
+        rb.isKinematic = true;
         inputEnabled = false;
         rb.velocity = Vector3.zero;
+    }
+
+    public void EnableInput()
+    {
+        rb.isKinematic = false;
+        inputEnabled = true;
     }
 
     public void SetCheckpoint(Vector3 newCheckpoint)
@@ -118,6 +127,8 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
+        if (!inputEnabled) return;
+
         if (isGrounded)
         {
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);

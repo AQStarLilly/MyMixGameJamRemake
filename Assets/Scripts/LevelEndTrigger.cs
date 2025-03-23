@@ -11,9 +11,8 @@ public class LevelEndTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isEnding) return;
-
-        if (other.CompareTag("Player"))
+        // Only allow the original player to trigger the goal
+        if (!isEnding && other.CompareTag("Player"))
         {
             PlayerController player = other.GetComponent<PlayerController>();
             if (player != null)
