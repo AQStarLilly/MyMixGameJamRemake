@@ -11,7 +11,7 @@ public class PressurePlate : MonoBehaviour
     public float fadeDuration = 1.5f;
 
     // Colors for different states.
-    public Color activatedColor = Color.grey;
+    public Color activatedColor = Color.blue;
     public Color deactivatedColor = Color.grey; // Final state color after object disappears
 
     // Flags
@@ -48,7 +48,7 @@ public class PressurePlate : MonoBehaviour
     {
         if (isDeactivated) return; //  Ignore activation if the plate has been used already
 
-        if (other.CompareTag("Player") || other.CompareTag("PlayerClone"))
+        if (other.CompareTag("Player"))
         {
             isActivated = true;
             ChangePlateColor(activatedColor);
@@ -65,7 +65,7 @@ public class PressurePlate : MonoBehaviour
     {
         if (isDeactivated) return; //  Ignore if deactivated
 
-        if ((other.CompareTag("Player") || other.CompareTag("PlayerClone")) && isActivated)
+        if (other.CompareTag("Player") && isActivated)
         {
             isActivated = false;
             ChangePlateColor(originalColor);

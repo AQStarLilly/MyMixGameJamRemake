@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -26,10 +27,16 @@ public class PlayerController : MonoBehaviour
     private Vector3 dashDirection;
     private float dashTimeRemaining;
 
+    private Vector3 respawnPoint;
+
+    [Header("Fall Death Settings")]
+    public float fallDeathY = -10f;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         inputActions = new PlayerInputActions();
+        respawnPoint = transform.position; // start checkpoint is where player spawns
 
         inputActions.Player.Jump.performed += ctx => Jump();
         inputActions.Player.Dash.performed += ctx => Dash();
@@ -45,6 +52,11 @@ public class PlayerController : MonoBehaviour
 
         // Ground check (basic raycast)
         isGrounded = Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, groundLayer);
+
+        if (transform.position.y < fallDeathY)
+        {
+            Respawn();
+        }
     }
 
     private void FixedUpdate()
@@ -90,6 +102,11 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(velocityChange, ForceMode.VelocityChange);
     }
 
+    public void SetCheckpoint(Vector3 newCheckpoint)
+    {
+        respawnPoint = newCheckpoint;
+    }
+
     private void Jump()
     {
         if (isGrounded)
@@ -113,5 +130,11 @@ public class PlayerController : MonoBehaviour
 
         // Optional: keep vertical velocity
         rb.velocity = new Vector3(0, rb.velocity.y, 0);
+    }
+
+    private void Respawn()
+    {
+        rb.velocity = Vector3.zero; // reset movement
+        transform.position = respawnPoint;
     }
 }
