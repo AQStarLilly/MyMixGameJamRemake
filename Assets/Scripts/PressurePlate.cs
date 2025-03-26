@@ -48,7 +48,7 @@ public class PressurePlate : MonoBehaviour
     {
         if (isDeactivated) return; //  Ignore activation if the plate has been used already
 
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Clone"))
         {
             isActivated = true;
             ChangePlateColor(activatedColor);
@@ -65,7 +65,7 @@ public class PressurePlate : MonoBehaviour
     {
         if (isDeactivated) return; //  Ignore if deactivated
 
-        if (other.CompareTag("Player") && isActivated)
+        if (other.CompareTag("Player") || other.CompareTag("Clone") && isActivated)
         {
             isActivated = false;
             ChangePlateColor(originalColor);

@@ -27,7 +27,7 @@ public class SpeechBubble : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Clone"))
         {
             ShowSpeechBubble();
         }
@@ -35,7 +35,7 @@ public class SpeechBubble : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Clone"))
         {
             HideSpeechBubble();
         }
