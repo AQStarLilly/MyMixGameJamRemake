@@ -1100,6 +1100,7 @@ MonoBehaviour:
   speechBubbleUI: {fileID: 1182010053}
   player: {fileID: 1709574291}
   heightOffset: 3
+  afterCloneMessage: You can switch between clones with Tab
 --- !u!1 &435299823 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d5c1693e853b79342880945256dbcd67,
@@ -2694,6 +2695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca6f4a4072e39c8418608cd7b7c7dc5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  linkedSpeechBubble: {fileID: 425677707}
   activated: 0
   usedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!65 &1184656123
@@ -2994,6 +2996,7 @@ MonoBehaviour:
   speechBubbleUI: {fileID: 598005927}
   player: {fileID: 1709574291}
   heightOffset: 3
+  afterCloneMessage: 
 --- !u!1001 &1348720778
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3461,6 +3464,7 @@ MonoBehaviour:
   speechBubbleUI: {fileID: 401033278}
   player: {fileID: 1709574291}
   heightOffset: 3
+  afterCloneMessage: 
 --- !u!1001 &1567197502
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3788,6 +3792,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca6f4a4072e39c8418608cd7b7c7dc5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  linkedSpeechBubble: {fileID: 425677707}
   activated: 0
   usedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!65 &1704069499

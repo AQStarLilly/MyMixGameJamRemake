@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ClonePlate : MonoBehaviour
 {
+    public SpeechBubble linkedSpeechBubble;
     public bool activated = false;
     private Renderer rend;
 
@@ -16,13 +17,17 @@ public class ClonePlate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (activated) return;
-
-        if (other.CompareTag("Player"))
+        if (!activated && other.CompareTag("Player"))
         {
             PlayerManager.Instance.CloneFromPlate(this);
-            ActivatePlate();
+            activated = true;
+
+            if (linkedSpeechBubble != null)
+            {
+                linkedSpeechBubble.SetCloneActivated(); // Change the message
+            }
         }
+
     }
 
     public void ActivatePlate()
