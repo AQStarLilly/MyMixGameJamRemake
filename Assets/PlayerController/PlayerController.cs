@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector3(0, rb.velocity.y, 0);
     }
 
-    private void Respawn()
+    public void Respawn()
     {
         rb.velocity = Vector3.zero; // reset movement
         transform.position = respawnPoint;
