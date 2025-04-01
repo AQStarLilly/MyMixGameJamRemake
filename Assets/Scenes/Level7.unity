@@ -5637,7 +5637,7 @@ PrefabInstance:
     - target: {fileID: 4034468368134880911, guid: 0c95025849cc5484fbd42d890cb15805,
         type: 3}
       propertyPath: m_text
-      value: We need to get up there somehow
+      value: It's Cloning time!
       objectReference: {fileID: 0}
     - target: {fileID: 8762241427910962057, guid: 0c95025849cc5484fbd42d890cb15805,
         type: 3}
