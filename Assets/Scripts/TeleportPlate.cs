@@ -4,7 +4,7 @@ public class TeleportPlate : MonoBehaviour
 {
     [Header("Teleport Settings")]
     public Transform destinationPlate; // Set this in the inspector to select the destination plate
-    public float teleportOffset = 1f; // Adjust if you want to spawn above the plate
+    public float teleportOffset = 1f; 
 
     private void OnTriggerEnter(Collider other)
     {
