@@ -1,18 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ClonePlate : MonoBehaviour
 {
     public SpeechBubble linkedSpeechBubble;
-    public bool activated = false;
     private Renderer rend;
 
+    public bool activated = false;
     public Color usedColor = Color.grey;
 
     private void Awake()
     {
         rend = GetComponent<Renderer>();
+
+        // Subscribe to scene change event to reset plates
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDestroy()
+    {
+        // Unsubscribe to prevent memory leaks
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -20,14 +30,8 @@ public class ClonePlate : MonoBehaviour
         if (!activated && other.CompareTag("Player"))
         {
             PlayerManager.Instance.CloneFromPlate(this);
-            activated = true;
-
-            if (linkedSpeechBubble != null)
-            {
-                linkedSpeechBubble.SetCloneActivated(); // Change the message
-            }
+            ActivatePlate();
         }
-
     }
 
     public void ActivatePlate()
@@ -38,5 +42,20 @@ public class ClonePlate : MonoBehaviour
         {
             rend.material.color = usedColor;
         }
+
+        if (linkedSpeechBubble != null)
+        {
+            linkedSpeechBubble.SetCloneActivated(); // Change the message
+        }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        ResetPlate();
+    }
+
+    private void ResetPlate()
+    {
+        activated = false;
     }
 }
