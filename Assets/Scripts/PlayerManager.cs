@@ -19,23 +19,36 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
-        DontDestroyOnLoad(gameObject);
+        Instance = this;
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        GameObject mainPlayer = GameObject.FindGameObjectWithTag("Player");
-        allPlayers.Add(mainPlayer);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
 
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Reset allPlayers list to just the new main player
+        allPlayers.Clear();
+
+        GameObject mainPlayer = GameObject.FindGameObjectWithTag("Player");
+        if (mainPlayer != null)
+        {
+            allPlayers.Add(mainPlayer);
+            currentPlayerIndex = 0;
+
+            // Reassign camera target if needed
+            Camera.main.GetComponent<PlayerCameraController>().target = mainPlayer.transform;
+        }
+
+        // Re-fetch clone plates in the new scene
+        clonePlates.Clear();
         ClonePlate[] plates = FindObjectsOfType<ClonePlate>();
         clonePlates.AddRange(plates);
     }
